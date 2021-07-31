@@ -1,3 +1,3 @@
-angular.module('projetoTecnico').controller('ProjetotecnicoController', function($scope){
+angular.module('projetoTecnico').controller('ProjetoTecnicoController', function($scope){
     
 });
