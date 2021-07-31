@@ -1,9 +1,9 @@
-angular.module('projetotecnico', ['projetotecnicoDiretivas','ngRoute'])
+angular.module('projetoTecnico', ['projetoTecnicoDiretivas','ngRoute'])
 .config(function($routeProvider){
 
     $routeProvider.when('/inicio',{
         templateUrl:'pages/visao-geral.html',
-        controller: 'ProjetotecnicoController'
+        controller: 'ProjeTotecnicoController'
     });
 
     $routeProvider.otherwise({ redirectTo: '/inicio'});

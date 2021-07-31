@@ -1,4 +1,4 @@
-angular.module("projetotecnico").factory("loginFactoryService", function ($http,config) {
+angular.module("projetoTecnico").factory("loginFactoryService", function ($http,config) {
     
         let _cadastrar = function (usuario) {   
                 return $http.post(config.baseUrl + '/usuarios', usuario);  	

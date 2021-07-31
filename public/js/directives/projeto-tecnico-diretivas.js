@@ -1,4 +1,4 @@
-angular.module('projetotecnicoDiretivas',[])
+angular.module('projetoTecnicoDiretivas',[])
 .directive('senhaFocus', function() {
     var ddo = {};
     ddo.restrict = "A";

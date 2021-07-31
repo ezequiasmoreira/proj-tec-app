@@ -1,4 +1,4 @@
-angular.module('projetotecnico').controller('loginController', function($scope,loginFactoryService,loginFactorySpec,utilFactorySpec){
+angular.module('projetoTecnico').controller('loginController', function($scope,loginFactoryService,loginFactorySpec,utilFactorySpec){
     
     $scope.login = {};
 	$scope.mensagem = '';

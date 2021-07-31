@@ -1,4 +1,4 @@
-angular.module("projetotecnico").factory("utilFactorySpec", function () {    
+angular.module("projetoTecnico").factory("utilFactorySpec", function () {    
 	
 	let _validarEmail = function (email, $scope) { 		 
 		let regex = /\S+@\S+\.\S+/;
