@@ -1,12 +1,12 @@
-angular.module('projetoTecnico').controller('projetoTecnicoController', function($scope,$http){
+angular.module('projetoTecnico').controller('projetoTecnicoController', function($scope,$http,config){
 
     var url = window.location.href;
     var token = window.localStorage.getItem("token");
-
-    if ((token == "null") && (url != "http://localhost:3000/") && (url != "http://localhost:3000/index.html")){
+    
+    if ((token == "null") && (url != config.url) && (url != config.url + "index.html")){
         window.location.href = '../..';
     }
-    if ((token != "null")  && (url == "http://localhost:3000/") || (url == "http://localhost:3000/index.html")){
+    if ((token != "null")  && (url == config.url) || (url == config.url + "index.html")){
         window.location.href = '/principal.html#/inicio';
     }
 
