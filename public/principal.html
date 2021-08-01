@@ -8,36 +8,36 @@
         <link rel="stylesheet" href="css/index.css">
         <script src="js/lib/angular.min.js"></script>
         <script src="js/main.js"></script>
-        <script src="js/controllers/projeto-tecnico-controller.js"></script>
         <script src="js/lib/angular-route.min.js"></script>
+        <script src="js/controllers/utils/util-factory-spec.js"></script>
+        <script src="js/directives/projeto-tecnico-diretivas.js"></script>
+        <script src="js/config/config-url.js"></script>
+        <script src="js/lib/angular-route.min.js"></script>
+        <script src="js/controllers/projeto-tecnico-controller.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
-<body ng-controller="ProjetoTecnicoController">
+<body ng-controller="projetoTecnicoController">
     <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
+      <div class="float-sm-right botao-flutuante" ng-click="sair()" >Sair.</div>
+        <div class="container-fluid ">
+         
           <div class="navbar-header">
-            <a class="navbar-brand" href="/principal.html#/inicio">Planejamento</a>
+            <a class="navbar-brand" href="/principal.html#/inicio">Projeto técnico</a>
           </div>
           <ul class="nav navbar-nav">
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" >Cadastro
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Despesa</a></li>
-                <li><a href="#">Receita</a></li>
+                <li><a href="#">Cliente</a></li>
               </ul>
             </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" >Consulta
-                <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Despesa</a></li>
-                  <li><a href="#">Receita</a></li>
-                </ul>
-              </li>
           </ul>
+          
+         
         </div>
+        
       </nav>
         <div class="container">
             <ng-view></ng-view> 

@@ -1,15 +1,15 @@
 angular.module("projetoTecnico").factory("loginFactoryService", function ($http,config) {
     
-        let _login = function (login) { 
-                let urlLogin = "/oauth/token?grant_type=password&username="+login.email+"&password="+login.senha
-               console.log($http.post(config.baseUrl + urlLogin))         
+        var _login = function (login) { 
+                var urlLogin = "/oauth/token?grant_type=password&username="+login.email+"&password="+login.senha;                
+                return $http.post(config.baseUrl + urlLogin); 
         };
 
-        let _cadastrar = function (usuario) {   
+        var _cadastrar = function (usuario) {   
                 return $http.post(config.baseUrl + '/usuarios', usuario);  	
         };
 
-        let _atribuirFocoException = function (campo,$scope){
+        var _atribuirFocoException = function (campo,$scope){
                 switch (campo) {
                         case "email":
                                 $scope.$broadcast('validarEmail');;

@@ -77,3 +77,14 @@
     width: 30%;
     height: 120px;
 }
+.botao-flutuante{
+    position: absolute;
+    margin-top: 16px;
+    margin-left: 95%;
+    color: #555;
+    font-weight: bold;
+    cursor: pointer;    
+}
+.botao-flutuante:hover{
+    color: #f7f7f7;
+}
