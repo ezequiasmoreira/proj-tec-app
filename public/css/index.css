@@ -88,3 +88,26 @@
 .botao-flutuante:hover{
     color: #f7f7f7;
 }
+.display-none{
+    display: none; 
+}
+.botao-excluir{
+    color: firebrick;
+    cursor:pointer;
+}
+.botao-salvar{
+    margin-left: 92%;
+}
+.table-overflow {
+    max-height:200px;
+    overflow-y:auto;
+}
+.cursor{
+    cursor:pointer; 
+}
+.modalEnderecoCabecalho{
+    margin-top: 1.5%;
+}
+.enderecoPrincipal{
+    background-color:#99ff99;
+}

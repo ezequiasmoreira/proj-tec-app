@@ -9,11 +9,15 @@
         <script src="js/lib/angular.min.js"></script>
         <script src="js/main.js"></script>
         <script src="js/lib/angular-route.min.js"></script>
-        <script src="js/controllers/utils/util-factory-spec.js"></script>
+        <script src="js/specs/util-factory-spec.js"></script>
         <script src="js/directives/projeto-tecnico-diretivas.js"></script>
         <script src="js/config/config-url.js"></script>
         <script src="js/lib/angular-route.min.js"></script>
         <script src="js/controllers/projeto-tecnico-controller.js"></script>
+        <script src="js/controllers/cliente-controller.js"></script>
+        <script src="js/services/cliente-factory-service.js"></script>
+        <script src="js/services/telefone-factory-service.js"></script>
+        <script src="js/services/endereco-factory-service.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
@@ -30,14 +34,11 @@
               <a class="dropdown-toggle" data-toggle="dropdown" >Cadastro
               <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Cliente</a></li>
+                <li><a href="/principal.html#/cliente-cadastro">Cliente</a></li>
               </ul>
             </li>
-          </ul>
-          
-         
-        </div>
-        
+          </ul>        
+        </div>       
       </nav>
         <div class="container">
             <ng-view></ng-view> 

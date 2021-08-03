@@ -6,5 +6,10 @@ angular.module('projetoTecnico', ['projetoTecnicoDiretivas','ngRoute'])
         controller: 'projetoTecnicoController'
     });
 
+    $routeProvider.when('/cliente-cadastro',{
+        templateUrl:'pages/cliente/cadastro.html',
+        controller: 'clienteController'
+    });
+
     $routeProvider.otherwise({ redirectTo: '/inicio'});
 });
