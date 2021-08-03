@@ -96,7 +96,11 @@
     cursor:pointer;
 }
 .botao-salvar{
-    margin-left: 92%;
+    width: 100px;
+    margin-left: 66%;
+}
+.botao-pesquisar, .botao-novo{
+    width: 100px;
 }
 .table-overflow {
     max-height:200px;
@@ -110,4 +114,12 @@
 }
 .enderecoPrincipal{
     background-color:#99ff99;
+}
+
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
 }

@@ -1,10 +1,25 @@
 angular.module("projetoTecnico").factory("clienteFactoryService", function ($http,config) {
     
-    var _cadastrar = function (cliente) {   
-            return $http.post(config.baseUrl + '/clientes', cliente);  	
-    };
+	var _salvar = function (cliente) {   
+		return $http.post(config.baseUrl + '/clientes', cliente);  	
+	};
 
-    return {
-            cadastrar: _cadastrar
-    };
+	var _atualizar = function (cliente) {   
+		return $http.put(config.baseUrl + '/clientes/'+cliente.id, cliente);  	
+	};
+
+	var _obterTodos = function () {   
+		return $http.get(config.baseUrl + '/clientes');  	
+	};
+
+	var _excluir = function (cliente) {   
+		return $http.delete(config.baseUrl + '/clientes/' + cliente.id);  	
+	};
+
+	return {
+		salvar: _salvar,
+		atualizar: _atualizar,
+		obterTodos: _obterTodos,
+		excluir: _excluir
+	};
 });
