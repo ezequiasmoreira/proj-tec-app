@@ -17,7 +17,8 @@ angular.module("projetoTecnico").factory("telefoneFactoryService", function () {
         });           	
     };
 
-    var _editarTelefone = function ($scope,telefone) {  
+    var _editarTelefone = function ($scope,telefone) { 
+        $scope.telefone={};   
         $scope.telefone.id          = telefone.id;
         $scope.telefone.descricao   = telefone.descricao;
         $scope.telefone.numero      = telefone.numero;

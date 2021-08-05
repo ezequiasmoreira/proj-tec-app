@@ -16,10 +16,20 @@ angular.module("projetoTecnico").factory("clienteFactoryService", function ($htt
 		return $http.delete(config.baseUrl + '/clientes/' + cliente.id);  	
 	};
 
+	var _novo = function ($scope) {   
+		$scope.cliente = {};
+        $scope.listaClientes = [];
+        $scope.telefones = [];    
+        $scope.enderecos = [];
+        $scope.cliente.telefones = [];
+        $scope.cliente.enderecos = [];  	
+	};
+
 	return {
 		salvar: _salvar,
 		atualizar: _atualizar,
 		obterTodos: _obterTodos,
-		excluir: _excluir
+		excluir: _excluir,
+		novo: _novo
 	};
 });

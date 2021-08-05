@@ -95,6 +95,10 @@
     color: firebrick;
     cursor:pointer;
 }
+.legenda{
+    background-color: #99ff99;
+    border-radius: 30%;
+}
 .botao-salvar{
     width: 100px;
     margin-left: 66%;
@@ -112,7 +116,7 @@
 .modalEnderecoCabecalho{
     margin-top: 1.5%;
 }
-.enderecoPrincipal{
+.enderecoPrincipal{    
     background-color:#99ff99;
 }
 
@@ -122,4 +126,27 @@
 .modal-body{
     max-height: calc(100vh - 200px);
     overflow-y: auto;
+}
+.mensagem-posicao{
+    position: fixed; 
+    margin-top:35%;
+    width: 80%;
+}
+.mensagem-erro{
+    -webkit-animation: fadeOut 2s forwards;
+    animation: fadeOut 2s forwards;
+    -webkit-animation-delay: 5s;
+    animation-delay: 5s;
+    padding: 10px;
+    text-align: center;
+    width: 80%;
+}
+@-webkit-keyframes fadeOut {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+@keyframes fadeOut {
+    from {opacity: 1;}
+    to {opacity: 0;}
 }
