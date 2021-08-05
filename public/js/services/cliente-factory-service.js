@@ -18,6 +18,7 @@ angular.module("projetoTecnico").factory("clienteFactoryService", function ($htt
 
 	var _novo = function ($scope) {   
 		$scope.cliente = {};
+		$scope.estados =[];
         $scope.listaClientes = [];
         $scope.telefones = [];    
         $scope.enderecos = [];

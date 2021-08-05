@@ -1,7 +1,8 @@
 angular.module('projetoTecnico').controller('clienteController', function($scope,clienteFactorySpec,enderecoFactorySpec,telefoneFactorySpec,
-    telefoneFactoryService,enderecoFactoryService,clienteFactoryService){
+    telefoneFactoryService,enderecoFactoryService,clienteFactoryService){  
     
-    clienteFactoryService.novo($scope);    
+    clienteFactoryService.novo($scope);   
+    enderecoFactoryService.popularEstados($scope);   
 
     $scope.salvarTelefone = function(telefone) { 
         try{
@@ -49,7 +50,9 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
             }else{
                 for(i in $scope.enderecos) {
                     if($scope.enderecos[i].$$hashKey == $scope.endereco.$$hashKey) {
-                        $scope.enderecos[i] = $scope.endereco;                    
+                        $scope.enderecos[i] = $scope.endereco;  
+                        console.log($scope.enderecos[i])
+                        console.log(enderecoFactoryService.new($scope.endereco))                  
                         $scope.cliente.enderecos[i] = enderecoFactoryService.new($scope.endereco);
                     }
                 }
@@ -74,13 +77,19 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
     }
 
     $scope.editarEndereco = function(endereco) {
-        enderecoFactoryService.editarEndereco($scope,endereco); 
+        enderecoFactoryService.popularEstados($scope);         
+        enderecoFactoryService.editarEndereco($scope,endereco);        
         $('#modalEndereco').modal("show");
     }
 
     $scope.cadastrarCliente = function(cliente) {    
         try{
             cliente.telefones = $scope.telefones;
+            $scope.enderecos = $scope.enderecos.filter(function(endereco){
+                endereco.estadoId = endereco.estadoId > 0 ? endereco.estadoId : endereco.cidade.estado.id;
+                endereco.cidade = {id:(endereco.cidadeId > 0 ? endereco.cidadeId : endereco.cidade.id)}                
+                return endereco;
+            }); 
             cliente.enderecos = $scope.enderecos;
             clienteFactorySpec.validarCliente(cliente);
             enderecoFactorySpec.validarEnderecoPrincipal(cliente.enderecos);
@@ -131,8 +140,11 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
             return;
         }                 
     }
-
-    $scope.pesquisarClientes = function() {  
+    $scope.popularCidades = function(estadoId) { 
+        enderecoFactoryService.popularCidadesPorEstado(estadoId,$scope);
+    }
+    
+    $scope.pesquisarClientes = function() { 
         $scope.mensagemPesquisarCliente = "";      
         clienteFactoryService.obterTodos().then(success, error);            
 
@@ -148,5 +160,6 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
     
     $scope.novo = function() {   
         clienteFactoryService.novo($scope); 
+        enderecoFactoryService.popularEstados($scope);
     }
 });

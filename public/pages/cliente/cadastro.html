@@ -123,11 +123,27 @@
                         <label for="cep" class="col-form-label">Cep</label>
                         <input type="text" ng-model="endereco.cep" class="form-control" id="cep">
                     </div> 
-
+                    <div class="form-group col-md-6">
+                        <label>Estado</label>
+                        <select name="endereco.estado" class="form-control" 
+                        ng-change="popularCidades(endereco.estadoId)"
+                        ng-model="endereco.estadoId" 
+                        ng-options="estado.id as (estado.nome| uppercase) for estado in estados" >
+                        <option Selected value="">SELECIONE UM ESTADO</option>
+                        </select>
+                    </div> 
+                    <div class="form-group col-md-6">
+                        <label>Cidade</label>
+                        <select name="endereco.cidade" class="form-control" 
+                        ng-model="endereco.cidadeId" 
+                        ng-options="cidade.id as (cidade.nome| uppercase) for cidade in cidades">
+                        <option Selected value="">SELECIONE UMA CIDADE</option>
+                        </select>
+                    </div> 
                     <div class="form-group col-md-6">
                         <input type="checkbox" ng-model="endereco.principal" class="form-check-input" id="principal">
                         <label class="form-check-label" for="principal">Endereço principal</label>
-                    </div> 
+                    </div>
                 </div> 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" ng-click="salvarEndereco(endereco)">Salvar</button>
@@ -151,9 +167,9 @@
             <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Nome</th>
+                    <th scope="col" >Nome</th>
                     <th scope="col">CPF/CNPJ</th>
-                    <th scope="col">Endereço</th>
+                    <th  >Endereço</th>
                     <th scope="col">#</th>
                   </tr>
                 </thead>
@@ -161,7 +177,11 @@
                   <tr ng-repeat="listaCliente in listaClientes" class="cursor">
                     <td ng-click="editarCliente(listaCliente)">{{listaCliente.nome}}</td>
                     <td ng-click="editarCliente(listaCliente)">{{listaCliente.cpfCnpj}}</td>
-                    <td ng-click="editarCliente(listaCliente)">{{listaCliente.endereco.logradouro}},{{listaCliente.endereco.numero}}</td>
+                    <td ng-click="editarCliente(listaCliente)">
+                        <span ng-repeat="listaEndereco in listaCliente.enderecos">
+                            <b class="list-group-item enderecoPrincipal" ng-if="listaEndereco.principal">{{listaEndereco.descricao}} - {{listaEndereco.logradouro}}, {{listaEndereco.numero}}</b>
+                        </span>
+                    </td>
                     <td><span ng-click="excluirCliente(listaCliente)" class="glyphicon glyphicon-remove"></span></td>
                   </tr>
                 </tbody>

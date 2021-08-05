@@ -1,4 +1,4 @@
-angular.module("projetoTecnico").factory("enderecoFactoryService", function () {
+angular.module("projetoTecnico").factory("enderecoFactoryService", function ($http,config) {
 
     var _new = function (endereco) {  
         var novoEndereco        = {};
@@ -9,6 +9,9 @@ angular.module("projetoTecnico").factory("enderecoFactoryService", function () {
         novoEndereco.complemento= endereco.complemento;
         novoEndereco.cep        = endereco.cep;
         novoEndereco.bairro     = endereco.bairro;
+        novoEndereco.cidade     = endereco.cidade;
+        novoEndereco.cidadeId   = endereco.cidadeId > 0 ? endereco.cidadeId : endereco.cidade.id;
+        novoEndereco.estadoId   = endereco.estadoId > 0 ? endereco.estadoId : endereco.cidade.estado.id;
         novoEndereco.principal  = endereco.principal ? true : false;
         return novoEndereco;  	
     };
@@ -30,6 +33,10 @@ angular.module("projetoTecnico").factory("enderecoFactoryService", function () {
         $scope.endereco.complemento = endereco.complemento;
         $scope.endereco.cep         = endereco.cep;
         $scope.endereco.bairro      = endereco.bairro;
+        $scope.endereco.cidade      = endereco.cidade;
+        $scope.endereco.estadoId    = endereco.estadoId > 0 ? endereco.estadoId : endereco.cidade.estado.id;
+        _popularCidadesPorEstado($scope.endereco.estadoId,$scope); 
+        $scope.endereco.cidadeId    = endereco.cidadeId > 0 ? endereco.cidadeId : endereco.cidade.id;      
         $scope.endereco.principal   = endereco.principal;
         $scope.endereco.$$hashKey   = endereco.$$hashKey;      	
     };
@@ -46,10 +53,28 @@ angular.module("projetoTecnico").factory("enderecoFactoryService", function () {
         });           	
     };
 
+    var _popularEstados = function ($scope) {       
+        $http.get(config.baseUrl + '/enderecos').then(success);
+        function success(response){ 
+            $scope.estados = response.data           
+        }
+        return true;                   	
+    };
+
+    var _popularCidadesPorEstado = function (estadoId,$scope) {      
+        $http.get(config.baseUrl + '/enderecos/' + estadoId +'/cidades').then(success);
+        function success(response){ 
+            $scope.cidades = response.data           
+        }
+        return true;                   	          	
+    };
+
     return {
             new: _new,
             excluirEndereco: _excluirEndereco,
             editarEndereco: _editarEndereco,
-            configurarEnderecoPrincipal: _configurarEnderecoPrincipal
+            configurarEnderecoPrincipal: _configurarEnderecoPrincipal,
+            popularEstados: _popularEstados,
+            popularCidadesPorEstado: _popularCidadesPorEstado
     };
 });
