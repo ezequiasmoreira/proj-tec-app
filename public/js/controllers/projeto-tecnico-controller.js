@@ -3,10 +3,10 @@ angular.module('projetoTecnico').controller('projetoTecnicoController', function
     var url = window.location.href;
     var token = window.localStorage.getItem("token");
     
-    if ((token == "null") && (url != config.url) && (url != config.url + "index.html")){
+    if ((token == "") && (url != config.url) && (url != config.url + "index.html")){
         window.location.href = '../..';
     }
-    if ((token != "null")  && (url == config.url) || (url == config.url + "index.html")){
+    if ((token != "")  && (url == config.url) || (url == config.url + "index.html")){
         window.location.href = '/principal.html#/inicio';
     }
 
@@ -19,7 +19,7 @@ angular.module('projetoTecnico').controller('projetoTecnicoController', function
     }   
 
     $scope.sair = function() {
-        window.localStorage.setItem("token",null);
+        window.localStorage.setItem("token","");
         window.location.href = '../../'; 
     }
 });
