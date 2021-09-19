@@ -159,7 +159,7 @@ angular.module('projetoTecnico').controller('fornecedorController', function($sc
     }
     
     $scope.novo = function() { 
-        $state.go('cliente-cadastro',{clienteId:123});
+        //$state.go('cliente-cadastro',{clienteId:123});
         fornecedorFactoryService.novo($scope); 
         enderecoFactoryService.popularEstados($scope);
     }

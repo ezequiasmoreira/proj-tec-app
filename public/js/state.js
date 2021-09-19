@@ -10,7 +10,6 @@ angular.module('projetoTecnico').config(function($stateProvider){
         name: 'cliente-cadastro',
         url: 'cliente-cadastro',
         templateUrl:'cliente/cliente.html',
-        controller: 'clienteController',
         //params: {'clienteId':null}
     }
 
