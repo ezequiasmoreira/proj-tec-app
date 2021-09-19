@@ -1,9 +1,9 @@
-angular.module('projetoTecnico').controller('clienteController', function($scope,clienteFactorySpec,enderecoFactorySpec,telefoneFactorySpec,
-    telefoneFactoryService,enderecoFactoryService,clienteFactoryService,$stateParams){  
+angular.module('projetoTecnico').controller('fornecedorController', function($scope,fornecedorFactorySpec,enderecoFactorySpec,telefoneFactorySpec,
+    telefoneFactoryService,enderecoFactoryService,fornecedorFactoryService,$state){  
     
-    clienteFactoryService.novo($scope);   
-    enderecoFactoryService.popularEstados($scope);
-    //console.log($stateParams.clienteId)
+    fornecedorFactoryService.novo($scope);   
+    enderecoFactoryService.popularEstados($scope);   
+
     $scope.salvarTelefone = function(telefone) { 
         try{
             telefoneFactorySpec.validarTelefone(telefone);
@@ -13,7 +13,7 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
                for(i in $scope.telefones) {
                     if($scope.telefones[i].$$hashKey == $scope.telefone.$$hashKey) {
                         $scope.telefones[i] = $scope.telefone;
-                        $scope.cliente.telefones[i] = telefoneFactoryService.new($scope.telefone);
+                        $scope.fornecedor.telefones[i] = telefoneFactoryService.new($scope.telefone);
                     }
                 }
             }
@@ -29,10 +29,10 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
 
     $scope.excluirTelefone = function(telefoneExcluir) {
         $scope.telefones = telefoneFactoryService.excluirTelefone($scope.telefones,telefoneExcluir); 
-        $scope.cliente.telefones = []; 
+        $scope.fornecedor.telefones = []; 
 
         $scope.telefones.filter(function(telefone){
-            $scope.cliente.telefones.push(telefoneFactoryService.new(telefone));
+            $scope.fornecedor.telefones.push(telefoneFactoryService.new(telefone));
         });   
     }
 
@@ -53,7 +53,7 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
                         $scope.enderecos[i] = $scope.endereco;  
                         console.log($scope.enderecos[i])
                         console.log(enderecoFactoryService.new($scope.endereco))                  
-                        $scope.cliente.enderecos[i] = enderecoFactoryService.new($scope.endereco);
+                        $scope.fornecedor.enderecos[i] = enderecoFactoryService.new($scope.endereco);
                     }
                 }
             }
@@ -69,10 +69,10 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
 
     $scope.excluirEndereco = function(enderecoExcluir) {
         $scope.enderecos = enderecoFactoryService.excluirEndereco($scope.enderecos,enderecoExcluir);
-        $scope.cliente.enderecos = []; 
+        $scope.fornecedor.enderecos = []; 
 
         $scope.enderecos.filter(function(endereco){
-            $scope.cliente.enderecos.push(enderecoFactoryService.new(endereco));
+            $scope.fornecedor.enderecos.push(enderecoFactoryService.new(endereco));
         });   
     }
 
@@ -82,28 +82,28 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
         $('#modalEndereco').modal("show");
     }
 
-    $scope.cadastrarCliente = function(cliente) {    
+    $scope.cadastrarFornecedor = function(fornecedor) {    
         try{
-            cliente.telefones = $scope.telefones;
+            fornecedor.telefones = $scope.telefones;
             $scope.enderecos = $scope.enderecos.filter(function(endereco){
                 endereco.estadoId = endereco.estadoId > 0 ? endereco.estadoId : endereco.cidade.estado.id;
                 endereco.cidade = {id:(endereco.cidadeId > 0 ? endereco.cidadeId : endereco.cidade.id)}                
                 return endereco;
             }); 
-            cliente.enderecos = $scope.enderecos;
-            clienteFactorySpec.validarCliente(cliente);
-            enderecoFactorySpec.validarEnderecoPrincipal(cliente.enderecos);
+            fornecedor.enderecos = $scope.enderecos;
+            fornecedorFactorySpec.validarFornecedor(fornecedor);
+            enderecoFactorySpec.validarEnderecoPrincipal(fornecedor.enderecos);
 
             $scope.mensagemSucesso = "";
-            if(cliente.id){
-                clienteFactoryService.atualizar($scope.cliente).then(success, error);
+            if(fornecedor.id){
+                fornecedorFactoryService.atualizar($scope.fornecedor).then(success, error);
             }else{
-                clienteFactoryService.salvar($scope.cliente).then(success, error);
+                fornecedorFactoryService.salvar($scope.fornecedor).then(success, error);
             }       
 
             function success(response){ 
-                $scope.cliente.id = response.data.id 
-                $scope.mensagemSucesso = "Cliente salvo com sucesso";
+                $scope.fornecedor.id = response.data.id 
+                $scope.mensagemSucesso = "Fornecedor salvo com sucesso";
             }
 
             function error(response){ 
@@ -117,26 +117,26 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
         }          
     }
 
-    $scope.editarCliente = function(cliente) {
-        $scope.cliente = cliente;
-        $scope.telefones = cliente.telefones;
-        $scope.enderecos = cliente.enderecos;
-        $('#modalPesquisaCliente').modal("hide");
+    $scope.editarFornecedor = function(fornecedor) {
+        $scope.fornecedor = fornecedor;
+        $scope.telefones = fornecedor.telefones;
+        $scope.enderecos = fornecedor.enderecos;
+        $('#modalPesquisaFornecedor').modal("hide");
     }
 
-    $scope.excluirCliente = function(clienteExcluir) {
-        clienteFactoryService.excluir(clienteExcluir).then(success, error);
+    $scope.excluirFornecedor = function(fornecedorExcluir) {
+        fornecedorFactoryService.excluir(fornecedorExcluir).then(success, error);
 
         function success(){ 
-            $scope.listaClientes = $scope.listaClientes.filter(function(cliente){
-                if(cliente.$$hashKey != clienteExcluir.$$hashKey){
-                    return cliente;
+            $scope.listaFornecedors = $scope.listaFornecedors.filter(function(fornecedor){
+                if(fornecedor.$$hashKey != fornecedorExcluir.$$hashKey){
+                    return fornecedor;
                 }
             });  
         }
 
         function error(response){ 
-            $scope.mensagemPesquisarCliente = response.data.message;
+            $scope.mensagemPesquisarFornecedor = response.data.message;
             return;
         }                 
     }
@@ -144,22 +144,23 @@ angular.module('projetoTecnico').controller('clienteController', function($scope
         enderecoFactoryService.popularCidadesPorEstado(estadoId,$scope);
     }
     
-    $scope.pesquisarClientes = function() { 
-        $scope.mensagemPesquisarCliente = "";      
-        clienteFactoryService.obterTodos().then(success, error);            
+    $scope.pesquisarFornecedors = function() { 
+        $scope.mensagemPesquisarFornecedor = "";      
+        fornecedorFactoryService.obterTodos().then(success, error);            
 
         function success(response){ 
-            $scope.listaClientes = response.data;
+            $scope.listaFornecedors = response.data;
         }
 
         function error(response){ 
-            $scope.mensagemPesquisarCliente = response.data.message;
+            $scope.mensagemPesquisarFornecedor = response.data.message;
             return;
         }         
     }
     
-    $scope.novo = function() {   
-        clienteFactoryService.novo($scope); 
+    $scope.novo = function() { 
+        $state.go('cliente-cadastro',{clienteId:123});
+        fornecedorFactoryService.novo($scope); 
         enderecoFactoryService.popularEstados($scope);
     }
 });
