@@ -21,66 +21,13 @@
     </div>
 
     <div class="form-group col-md-6">
-        <label for="telefone">Telefones&nbsp;<span class="glyphicon glyphicon-plus botao-adicionar" data-target="#modalTelefone" data-toggle="modal"></span></label>
-        <ul class="list-group">
-            <li class="list-group-item" > &nbsp;
-                <span class="btn btn-sm" ng-repeat="telefone in telefones">
-                    <button type="text" class="btn" ng-click="editarTelefone(telefone)" >{{telefone.numero}}</button><span ng-click="excluirTelefone(telefone)" class="glyphicon glyphicon-remove"></span>
-                </span>
-            </li>
-        </ul>
-        <label for="endereco">Endereços&nbsp;<span class="glyphicon glyphicon-plus botao-adicionar" data-target="#modalEndereco" data-toggle="modal"></span></label>
-        <ul class="list-group">
-            <li class="list-group-item" > &nbsp;
-                <span class="btn btn-sm" ng-repeat="endereco in enderecos">
-                    <button type="text" class="btn" ng-click="editarEndereco(endereco)"ng-class="{enderecoPrincipal:endereco.principal}">{{endereco.descricao}}</button><span ng-click="excluirEndereco(endereco)" class="glyphicon glyphicon-remove"></span>
-                </span>
-            </li>
-        </ul>
-        <figcaption class="figure-caption"><span class="legenda">&nbsp;&nbsp;&nbsp;</span>&nbsp;Principal.</figcaption>
-    </div>  
-    
+        <telefone-input></telefone-input>
+        <endereco-input></endereco-input>
+    </div>     
 </form>
 
 <telefone-modal></telefone-modal>
-
 <endereco-modal></endereco-modal>
-
-<div class="modal fade" id="modalPesquisaCliente" tabindex="-1" role="dialog" aria-labelledby="pesquisaClienteModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="pesquisaClienteModalScrollableTitle">Clientes</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col" >Nome</th>
-                    <th scope="col">CPF/CNPJ</th>
-                    <th  >Endereço</th>
-                    <th scope="col">#</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="listaCliente in listaClientes" class="cursor">
-                    <td ng-click="editarCliente(listaCliente)">{{listaCliente.nome}}</td>
-                    <td ng-click="editarCliente(listaCliente)">{{listaCliente.cpfCnpj}}</td>
-                    <td ng-click="editarCliente(listaCliente)">
-                        <span ng-repeat="listaEndereco in listaCliente.enderecos">
-                            <b class="list-group-item enderecoPrincipal" ng-if="listaEndereco.principal">{{listaEndereco.descricao}} - {{listaEndereco.logradouro}}, {{listaEndereco.numero}}</b>
-                        </span>
-                    </td>
-                    <td><span ng-click="excluirCliente(listaCliente)" class="glyphicon glyphicon-remove"></span></td>
-                  </tr>
-                </tbody>
-              </table>
-            
-    </div>
-    <p class="mensagem-erro alert alert-danger" ng-show="mensagemPesquisarCliente.length" >{{mensagemPesquisarCliente}}</p>
-  </div>
-  <br>
+<cliente-listagem></cliente-listagem>
+<br>
   
