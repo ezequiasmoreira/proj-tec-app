@@ -128,7 +128,7 @@ angular.module('projetoTecnico').controller('fornecedorController', function($sc
         fornecedorFactoryService.excluir(fornecedorExcluir).then(success, error);
 
         function success(){ 
-            $scope.listaFornecedors = $scope.listaFornecedors.filter(function(fornecedor){
+            $scope.listafornecedores = $scope.listafornecedores.filter(function(fornecedor){
                 if(fornecedor.$$hashKey != fornecedorExcluir.$$hashKey){
                     return fornecedor;
                 }
@@ -144,12 +144,12 @@ angular.module('projetoTecnico').controller('fornecedorController', function($sc
         enderecoFactoryService.popularCidadesPorEstado(estadoId,$scope);
     }
     
-    $scope.pesquisarFornecedors = function() { 
+    $scope.pesquisarfornecedores = function() { 
         $scope.mensagemPesquisarFornecedor = "";      
         fornecedorFactoryService.obterTodos().then(success, error);            
 
         function success(response){ 
-            $scope.listaFornecedors = response.data;
+            $scope.listafornecedores = response.data;
         }
 
         function error(response){ 

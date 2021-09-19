@@ -1,4 +1,4 @@
-angular.module('projetoTecnico', ['projetoTecnicoDiretivas','ngRoute','ui.router'])
+angular.module('projetoTecnico', ['projetoTecnicoDiretivas','telefone','endereco','ngRoute','ui.router'])
 .config(function($routeProvider){  
     
     $routeProvider.when('/inicio',{
