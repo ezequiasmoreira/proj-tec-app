@@ -1,0 +1,8 @@
+<label for="telefone">Telefones&nbsp;<span class="glyphicon glyphicon-plus botao-adicionar" data-target="#modalTelefone" data-toggle="modal"></span></label>
+<ul class="list-group">
+    <li class="list-group-item" > &nbsp;
+        <span class="btn btn-sm" ng-repeat="telefone in telefones">
+            <button type="text" class="btn" ng-click="editarTelefone(telefone)" >{{telefone.numero}}</button><span ng-click="excluirTelefone(telefone)" class="glyphicon glyphicon-remove"></span>
+        </span>
+    </li>
+</ul>
