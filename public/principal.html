@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" ng-app="projetoTecnico">
-    <head>
+    <head >
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <title>Projeto técnico</title>
@@ -11,15 +11,21 @@
         <script src="js/state.js"></script>
         <script src="js/lib/angular-route.min.js"></script>
         <script src="js/lib/angular-ui-router.js"></script>
-        <script src="js/specs/util-factory-spec.js"></script>        
-        <script src="endereco/endereco-factory-spec.js"></script>
+
+        <script src="bower_components/core-enderecos/src/endereco-directive.js"></script>
+        
+        <script src="js/specs/util-factory-spec.js"></script>
+        
+        
+        <script src="bower_components/core-enderecos/src/endereco-factory-spec.js"></script>
         <script src="telefone/telefone-factory-spec.js"></script>
         <script src="telefone/telefone-directive.js"></script>
-        <script src="endereco/endereco-directive.js"></script>
         <script src="cliente/cliente-directive.js"></script>
         <script src="cliente/cliente-factory-spec.js"></script>
         <script src="fornecedor/fornecedor-factory-spec.js"></script>
         <script src="js/directives/projeto-tecnico-diretivas.js"></script>
+        
+
         <script src="js/config/config-url.js"></script>
         <script src="js/lib/angular-route.min.js"></script>
         <script src="js/controllers/projeto-tecnico-controller.js"></script>
@@ -27,11 +33,11 @@
         <script src="fornecedor/fornecedor-controller.js"></script>
         <script src="cliente/cliente-factory-service.js"></script>
         <script src="fornecedor/fornecedor-factory-service.js"></script>
+        <script src="bower_components/core-enderecos/src/endereco-factory-service.js"></script>
+
         <script src="telefone/telefone-factory-service.js"></script>
-        <script src="endereco/endereco-factory-service.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
         <script src="//unpkg.com/@uirouter/angularjs@1.0.7/release/angular-ui-router.min.js"></script>
     </head>
 <body ng-controller="projetoTecnicoController">

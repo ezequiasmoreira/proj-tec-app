@@ -1,4 +1,22 @@
-angular.module('projetoTecnico').controller('fornecedorController', function($scope,fornecedorFactorySpec,enderecoFactorySpec,telefoneFactorySpec,
+(function () {
+    'use strict';
+
+angular
+    .module('projetoTecnico')
+    .controller('fornecedorController', fornecedorController);
+
+    fornecedorController.$inject = [
+        '$scope',
+        'fornecedorFactorySpec',
+        'enderecoFactorySpec',
+        'telefoneFactorySpec',
+        'telefoneFactoryService',
+        'enderecoFactoryService',
+        'fornecedorFactoryService',
+        '$state'
+    ]
+
+    function fornecedorController ($scope,fornecedorFactorySpec,enderecoFactorySpec,telefoneFactorySpec,
     telefoneFactoryService,enderecoFactoryService,fornecedorFactoryService,$state){  
     
     fornecedorFactoryService.novo($scope);   
@@ -163,4 +181,5 @@ angular.module('projetoTecnico').controller('fornecedorController', function($sc
         fornecedorFactoryService.novo($scope); 
         enderecoFactoryService.popularEstados($scope);
     }
-});
+};
+})();
