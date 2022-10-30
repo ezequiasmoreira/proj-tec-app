@@ -99,12 +99,10 @@
     background-color: #99ff99;
     border-radius: 30%;
 }
-.botao-salvar{
+.botao-pesquisar, .botao-novo, .botao-salvar{
     width: 100px;
-    margin-left: 66%;
-}
-.botao-pesquisar, .botao-novo{
-    width: 100px;
+    margin: 10px;
+    float: right;
 }
 .table-overflow {
     max-height:200px;
@@ -129,8 +127,9 @@
 }
 .mensagem-posicao{
     position: fixed; 
-    margin-top:35%;
-    width: 80%;
+    margin-top: -1.5%;
+    margin-left: 1% ;
+    width: 30%;
 }
 .mensagem-erro{
     -webkit-animation: fadeOut 2s forwards;
@@ -138,8 +137,7 @@
     -webkit-animation-delay: 5s;
     animation-delay: 5s;
     padding: 10px;
-    text-align: center;
-    width: 80%;
+    width: 30%;
 }
 @-webkit-keyframes fadeOut {
     from {opacity: 1;}
