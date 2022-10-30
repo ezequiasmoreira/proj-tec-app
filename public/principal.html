@@ -27,6 +27,9 @@
         <script src="fornecedor/fornecedor-controller.js"></script>
         <script src="cliente/cliente-factory-service.js"></script>
         <script src="fornecedor/fornecedor-factory-service.js"></script>
+
+        <script src="log/log-service.js"></script>
+        <script src="log/log-controller.js"></script>
         
         <script src="bower_components/core-config/dist/bfc-config.js"></script>
 
@@ -53,6 +56,15 @@
               <ul class="dropdown-menu">
                 <li><a ui-sref="cliente-cadastro" ui-sref-active="active">Cliente</a></li>
                 <li><a ui-sref="fornecedor-cadastro"  ui-sref-active="active">Fornecedor</a></li>
+              </ul>
+            </li>
+          </ul>    
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle cursor" data-toggle="dropdown">Configuração
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a ui-sref="log-listagem" ui-sref-active="active">Log</a></li>
               </ul>
             </li>
           </ul>        

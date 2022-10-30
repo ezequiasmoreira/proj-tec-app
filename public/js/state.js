@@ -13,6 +13,13 @@ angular.module('projetoTecnico').config(function($stateProvider){
         //params: {'clienteId':null}
     }
 
+    var log = {
+        name: 'log-listagem',
+        url: 'log-listagem',
+        templateUrl:'log/log.html'
+    }
+
     $stateProvider.state(fornecedor);
     $stateProvider.state(cliente);
+    $stateProvider.state(log);
 });

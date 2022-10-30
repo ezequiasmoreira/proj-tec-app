@@ -16,5 +16,10 @@ angular.module('projetoTecnico', ['projetoTecnicoDiretivas','componentes','ngRou
         controller: 'fornecedorController'
     });
 
+    $routeProvider.when('/log-listagem',{
+        templateUrl:'log/log.html',
+        controller: 'logController'
+    });
+
     $routeProvider.otherwise({ redirectTo: '/inicio'});
 });

@@ -1,0 +1,41 @@
+<span class="text-center login-title"><b>Análise de logs</b></span>
+<br>
+<p class="alert alert-danger mensagem-posicao" ng-if="mensagem.length" >{{mensagem}}</p>
+<p class="mensagem-erro alert alert-info mensagem-posicao" ng-show="mensagemSucesso.length" >{{mensagemSucesso}}</p>  
+<form novalidate name="formulario" >     
+    <div class="col-md-12">        
+        <button type="button" ng-click="novo(log)" class="btn  botao-novo">Novo</button>
+        <button type="button" ng-click="obterLogs(log)" data-toggle="modal" class="btn btn-success botao-pesquisar">Pesquisar</button>
+    </div> 
+    <div class="form-group col-md-3">
+        <label for="classe">Classe</label>
+        <input type="text" ng-model="log.classe" class="form-control" id="classe" >
+    </div>
+    <div class="form-group col-md-1">
+        <label for="data-inicial">Data inicial</label>
+        <input type="date" ng-model="log.dataInicial" class="form-control" id="data-inicial" >
+        <input type="time" ng-model="log.dataInicialHora" class="form-control" id="data-inicial-hora" >       
+    </div>
+    <div class="form-group col-md-1">
+        <label for="data-final">Data final</label>
+        <input type="date" ng-model="log.dataFinal" class="form-control" id="data-final" >
+        <input type="time" ng-model="log.dataFinalHora" class="form-control" id="data-final-hora" >
+    </div>
+    <div class="form-group col-md-1">
+        <label for="data-final">Acão</label>
+        <input type="text" ng-model="log.acao" class="form-control" id="acao" >
+    </div>
+    <div class="form-group col-md-2">
+        <label for="campoName">Propriedade</label>
+        <input type="text" ng-model="log.campoName" class="form-control" id="campoName" >
+    </div>
+    <div class="form-group col-md-2">
+        <label for="campoValue">Valor</label>
+        <input type="text" ng-model="log.campoValue" class="form-control" id="campoValue" >
+    </div>
+    <div class="form-group col-md-1">
+        <label for="identificador">Identificador</label>
+        <input type="text" ng-model="log.identificador"class="form-control" id="identificador" >
+    </div>    
+</form>
+  
