@@ -4,7 +4,12 @@ angular.module("projetoTecnico").factory("logService", function ($http,config) {
 		return $http.post(config.baseUrl + '/logs/filter', log);  	
 	};
 
+	var _obterClasses = function () {   
+		return $http.get(config.baseUrl + '/logs/classes');  	
+	};
+
 	return {
-		obterLogs: _obterLogs
+		obterLogs: _obterLogs,
+		obterClasses: _obterClasses
 	};
 });
