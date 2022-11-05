@@ -1,10 +1,17 @@
 angular.module('projetoTecnico').controller('logController', function($scope, logService, logDTO){ 
     
+    vm = $scope;
     popularClasses();
-    $scope.log ={};
-    $scope.obterLogs = function(log) {
+    
+    vm.log ={};
+    vm.atualizarClasses = atualizarClasses;
+    vm.obterLogs = obterLogs;
+    vm.atualizarPropriedade = atualizarPropriedade;
+    
+    function obterLogs (log) {
         try{
             log.classe = log.classeSelect2.classe;
+            log.campoName = log.propriedadeSelect2.nome;
             logService.obterLogs(logDTO.new(log)).then(success, error);                  
 
             function success(response){ 
@@ -22,37 +29,33 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
         }          
     }
 
-    $scope.person = {};
-    $scope.people = [
-      { name: 'Adam',      email: 'adam@email.com',      age: 10 },
-      { name: 'Amalie',    email: 'amalie@email.com',    age: 12 },
-      { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30 },
-      { name: 'Samantha',  email: 'samantha@email.com',  age: 31 },
-      { name: 'Estefanía', email: 'estefanía@email.com', age: 16 },
-      { name: 'Natasha',   email: 'natasha@email.com',   age: 54 },
-      { name: 'Nicole',    email: 'nicole@email.com',    age: 43 },
-      { name: 'Adrian',    email: 'adrian@email.com',    age: 21 }
-    ];
+    function atualizarClasses(){
+        var classe = vm.log.classeSelect2.classe;
+        vm.log.propriedadeSelect2 = "";
+        logService.obterPropriedades(classe).then(success, error);
+        function success(response){
+            vm.propriedade = {};
+            vm.propriedades = response.data;
+        }
+        function error(response){ 
+           console.log(response)
+        } 
+    }
 
     function popularClasses(){
-        try{
-            logService.obterClasses().then(success, error);                  
-
-            function success(response){ 
-                $scope.classes = response.data;
-                $scope.classe = {};
-                console.log(response)
-            }
-
-            function error(response){ 
-                $scope.mensagem = response.data.message;
-                return;
-            } 
-            $timeout( function(){ $scope.mensagemSucesso = ""; }, 100); 
-        }catch (exception) {
-            $scope.mensagem = exception
+        logService.obterClasses().then(success, error); 
+        function success(response){ 
+            vm.classe = {};
+            vm.classes = response.data;                
+        }
+        function error(response){ 
+            $scope.mensagem = response.data.message;
             return;
-        }      
+        }            
+    }
+
+    function atualizarPropriedade (){
+        vm.log.campoValue = null;
     }
 
 });

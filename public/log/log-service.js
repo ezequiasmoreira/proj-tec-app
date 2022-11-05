@@ -8,8 +8,13 @@ angular.module("projetoTecnico").factory("logService", function ($http,config) {
 		return $http.get(config.baseUrl + '/logs/classes');  	
 	};
 
+	var _obterPropriedades = function (classe) {  
+		return $http.get(config.baseUrl + '/logs/propriedades?classe=' + classe);  	
+	};
+
 	return {
 		obterLogs: _obterLogs,
-		obterClasses: _obterClasses
+		obterClasses: _obterClasses,
+		obterPropriedades: _obterPropriedades
 	};
 });

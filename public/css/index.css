@@ -142,9 +142,11 @@
 .col-md-1 {
     width: 10%;
 }
-.form-control{
-    padding: 25px;
+
+.col-md-2 {
+    width: 13%;
 }
+
 @-webkit-keyframes fadeOut {
     from {opacity: 1;}
     to {opacity: 0;}

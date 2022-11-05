@@ -7,18 +7,20 @@
         <button type="button" ng-click="novo(log)" class="btn  botao-novo">Novo</button>
         <button type="button" ng-click="obterLogs(log)" data-toggle="modal" class="btn btn-success botao-pesquisar">Pesquisar</button>
     </div> 
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-3">
         <label for="classe">Classe</label>       
-        <ui-select  id="classe" tagging="tagTransform" ng-model="log.classeSelect2" theme="bootstrap" ng-disabled="disabled" title="Escolha uma classe">
-            <ui-select-match placeholder="Selecione uma classe...">{{$select.selected.nome}} &lt;{{$select.selected.classe}}&gt;</ui-select-match>
-            <ui-select-choices repeat="classe in classes | propsFilter: {nome: $select.search, classe: $select.search}">
-              <div ng-if="classe.isTag" ng-bind-html="classe.nome +' <small>(new)</small>'| highlight: $select.search"></div>
-              <div ng-if="!classe.isTag" ng-bind-html="classe.nome + classe.isTag| highlight: $select.search"></div>
-              <small>
-                <span ng-bind-html="''+classe.classe | highlight: $select.search"></span>
-              </small>
-            </ui-select-choices>
-            </ui-select>
+        <ui-select  id="classe" tagging="tagTransform" ng-model="log.classeSelect2" 
+                    theme="bootstrap" ng-disabled="disabled" title="Escolha uma classe"
+                    ng-change="atualizarClasses(); atualizarPropriedade();">
+          <ui-select-match placeholder="Selecione uma classe...">{{$select.selected.nome}} &lt;{{$select.selected.classe}}&gt;</ui-select-match>
+          <ui-select-choices repeat="classe in classes | propsFilter: {nome: $select.search, classe: $select.search}">
+            <div ng-if="classe.isTag" ng-bind-html="classe.nome +' <small>(new)</small>'| highlight: $select.search"></div>
+            <div ng-if="!classe.isTag" ng-bind-html="classe.nome + classe.isTag| highlight: $select.search"></div>
+            <small>
+              <span ng-bind-html="''+classe.classe | highlight: $select.search"></span>
+            </small>
+          </ui-select-choices>
+        </ui-select>
     </div>
     <div class="form-group col-md-2">
         <label for="data-inicial">Data inicial</label>
@@ -28,21 +30,41 @@
         <label for="data-final">Data final</label>
         <input type="datetime-local" ng-model="log.dataFinal" class="form-control" id="data-final" >
     </div>
-    <div class="form-group col-md-1">
-        <label for="data-final">Acão</label>
-        <input type="text" ng-model="log.acao" class="form-control" id="acao" >
-    </div>
-    <div class="form-group col-md-1">
-        <label for="campoName">Propriedade</label>
-        <input type="text" ng-model="log.campoName" class="form-control" id="campoName" >
+    <div class=" col-md-2">
+      <label for="acao">Acão</label>
+      <select title="&nbsp" class="selectpicker form-control" id="acao" multiple data-max-options="3"
+              ng-model="log.acao">
+        <option value=1>Inserir</option>
+        <option value=2>Atualizar</option>
+        <option value=3>Excluir</option>
+      </select>
+      
     </div>
     <div class="form-group col-md-2">
-        <label for="campoValue">Valor</label>
-        <input type="text" ng-model="log.campoValue" class="form-control" id="campoValue" >
+        <label for="campoName">Propriedade</label>
+        <ui-select ng-disabled="!log.classeSelect2" id="campoName" tagging="tagTransform" ng-model="log.propriedadeSelect2" 
+                  theme="bootstrap" ng-disabled="disabled" title="&nbsp" 
+                  ng-change="atualizarPropriedade()">
+          <ui-select-match >{{$select.selected.nome}}</ui-select-match>
+          <ui-select-choices repeat="propriedade in propriedades | propsFilter: {nome: $select.search}">
+           <b>
+             <div ng-if="propriedade.isTag" ng-bind-html="propriedade.nome +' <small>(new)</small>'| highlight: $select.search"></div>
+            <div ng-if="!propriedade.isTag" ng-bind-html="propriedade.nome + propriedade.isTag| highlight: $select.search"></div>
+           </b>
+            <small>
+              <span ng-bind-html="''+propriedade.tipo | highlight: $select.search"></span>
+            </small>
+            
+          </ui-select-choices>
+        </ui-select>        
+    </div>
+    <div class="form-group col-md-2">
+        <label for="campoValue">Igual a</label>
+        <input ng-disabled="!log.propriedadeSelect2" type="text" ng-model="log.campoValue" class="form-control" id="campoValue" >
     </div>
     <div class="form-group col-md-1">
         <label for="identificador">Identificador</label>
-        <input type="text" ng-model="log.identificador"class="form-control" id="identificador" >
+        <input type="number" ng-model="log.identificador"class="form-control" id="identificador" >
     </div>    
 </form>
 <table class="table">
