@@ -60,7 +60,8 @@
     </div>
     <div class="form-group col-md-2">
         <label for="campoValue">Igual a</label>
-        <input ng-disabled="!log.propriedadeSelect2" type="text" ng-model="log.campoValue" class="form-control" id="campoValue" >
+        <input placeholder="{{getPlaceholder()}}" ng-disabled="!log.propriedadeSelect2" type="{{getTypeInput()}}" ng-model="log.campoValue" class="form-control" id="campoValue" >
+
     </div>
     <div class="form-group col-md-1">
         <label for="identificador">Identificador</label>
