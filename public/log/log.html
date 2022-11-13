@@ -68,30 +68,23 @@
         <input type="number" ng-model="log.identificador"class="form-control" id="identificador" >
     </div>    
 </form>
-<table class="table">
+<div ng-repeat="logFilter in logFilters">
+  <table class="table">
     <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
+      <tr style= "background-color: rgb(245, 239, 239);">
+        <th width="5px"> <i class="glyphicon glyphicon-plus"></i> </th>
+        <th>Usuario: {{logFilter.usuario.nome}}</th>
+        <th>Data: {{getDataParaExibir(logFilter.dataCadastro)}}</th>
+        <th>Classe: {{logFilter.entity}}</th>
+        <th>Acão: <b class="{{getAcaoParaExibir(logFilter.acaoEntity).classe}}">{{getAcaoParaExibir(logFilter.acaoEntity).nome}}</b></th>
+        <th>ID: {{logFilter.identificador}}</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
+      <tr ng-repeat="propriedade in propriedades">
+        <td colspan="5">{{propriedade.nome}} : {{getPropriedadeValor(propriedade, logFilter.campos)}}</td>
       </tr>
       <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
     </tbody>
   </table>
-  
+</div>

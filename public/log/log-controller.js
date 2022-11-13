@@ -9,16 +9,22 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     var DATE = "date";
     var LOCAL_DATE = "datetime-local";
     var NUMBER = "number";
+    var VIRGULA = ", ";
     var MENSAGEM_PLACEHOLDER_LIST = "Digite um id";
     var MENSAGEM_PLACEHOLDER_BOOLEAN = "Digite true ou false";
 
     popularClasses();
     
     vm.log ={};
+    vm.logFilter= {};
+    vm.logFilters = [];
     vm.atualizarClasses = atualizarClasses;
     vm.obterLogs = obterLogs;
     vm.getTypeInput = getTypeInput;
     vm.getPlaceholder = getPlaceholder;
+    vm.getAcaoParaExibir = getAcaoParaExibir;
+    vm.getDataParaExibir = getDataParaExibir;
+    vm.getPropriedadeValor = getPropriedadeValor;
     vm.atualizarPropriedade = atualizarPropriedade;
     
     function obterLogs (log) {
@@ -28,6 +34,7 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
             logService.obterLogs(logDTO.new(log)).then(success, error);                  
 
             function success(response){ 
+                vm.logFilters = response.data;
                 console.log(response)
             }
 
@@ -121,5 +128,38 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     function getTypeBoolean(){  return tipoRetornoEnum.getTypeBoolean(); }
     function getTypeDateTime(){ return tipoRetornoEnum.getTypeDateTime(); }   
 
+    function getDataParaExibir(data){ 
+        return new Date(data).toLocaleString('pt-BR'); 
+    }
     
+    function getAcaoParaExibir(codigoAcao){ 
+        var acaoEntity = {
+            nome: 'CRIAR',
+            classe: 'text-primary'
+        } 
+
+        if (codigoAcao > 1) {
+            acaoEntity.nome = codigoAcao == 2 ? 'ATUALIZAR' : 'EXCLUIR';
+            acaoEntity.classe = codigoAcao == 2 ? 'text-success' : 'text-danger';
+        }
+        return acaoEntity;
+    }
+
+    function getPropriedadeValor(propriedade, log){
+        //debugger
+        logRegistro = JSON.parse(log);
+        valorRetorno = logRegistro[propriedade.nome];
+        if (angular.isObject(valorRetorno) && valorRetorno.length > ZERO){
+            var ids = VAZIO;
+            valorRetorno.forEach(obj => {
+                ids += ids == VAZIO ? obj.id : VIRGULA + obj.id;
+            });
+            valorRetorno = ids;
+        }
+
+        if (angular.isObject(valorRetorno) && valorRetorno.object){            
+            valorRetorno = valorRetorno.id;
+        }
+        return valorRetorno; 
+    }
 });
