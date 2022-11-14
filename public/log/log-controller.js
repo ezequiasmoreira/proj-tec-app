@@ -12,6 +12,13 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     var NUMBER = "number";
     var VIRGULA = ", ";
     var DIA_DEDUZIR = 1;
+    var CODIGO_ATUALIZAR = 2; 
+    var ACAO_CRIAR = 'CRIAR';    
+    var ACAO_EXCLUIR = 'EXCLUIR';
+    var ACAO_ATUALIZAR = 'ATUALIZAR';
+    var CLASSE_CRIAR = 'text-primary';
+    var CLASSE_EXCLUR = 'text-danger';
+    var CLASSE_ATUALIZAR = 'text-success';      
     var MENSAGEM_PLACEHOLDER_LIST = "Digite um id";
     var MENSAGEM_PLACEHOLDER_BOOLEAN = "Digite true ou false";
 
@@ -161,7 +168,7 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     }
 
     function getLocalDataParaExibir(data){
-        return new Date(data.year, data.month - DIA_DEDUZIR , data.day).toLocaleDateString(PT_BR); 
+        return new Date(data.year, data.month - DIA_DEDUZIR, data.day).toLocaleDateString(PT_BR); 
     }
 
     function getLocalDataTimeParaExibir(data){ 
@@ -172,13 +179,13 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     
     function getAcaoParaExibir(codigoAcao){ 
         var acaoEntity = {
-            nome: 'CRIAR',
-            classe: 'text-primary'
+            nome: ACAO_CRIAR,
+            classe: CLASSE_CRIAR
         } 
 
         if (codigoAcao > 1) {
-            acaoEntity.nome = codigoAcao == 2 ? 'ATUALIZAR' : 'EXCLUIR';
-            acaoEntity.classe = codigoAcao == 2 ? 'text-success' : 'text-danger';
+            acaoEntity.nome = codigoAcao == CODIGO_ATUALIZAR ? ACAO_ATUALIZAR : ACAO_EXCLUIR;
+            acaoEntity.classe = codigoAcao == CODIGO_ATUALIZAR ? CLASSE_ATUALIZAR : CLASSE_EXCLUR;
         }
         return acaoEntity;
     }
