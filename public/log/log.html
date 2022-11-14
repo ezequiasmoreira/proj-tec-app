@@ -68,7 +68,7 @@
         <input type="number" ng-model="log.identificador"class="form-control" id="identificador" >
     </div>    
 </form>
-<div ng-repeat="logFilter in logFilters">
+<div class="container-fluid " ng-repeat="logFilter in logFilters">
   <table class="table">
     <thead>
       <tr style= "background-color: rgb(245, 239, 239);">
@@ -82,7 +82,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="propriedade in propriedades">
-        <td colspan="5">{{propriedade.nome}} : {{getPropriedadeValor(propriedade, logFilter.campos)}}</td>
+        <td title="{{propriedade.tipo}}" colspan="6">{{propriedade.nome}} : {{getPropriedadeValor(propriedade, logFilter.campos)}}</td>
       </tr>
       <tr>
     </tbody>

@@ -8,29 +8,29 @@ angular.module("projetoTecnico").factory("tipoRetornoEnum", function () {
 			NUMBER: {"id" : "FLOAT", "value": "java.lang.Number"},
 			DOUBLE: {"id" : "FLOAT", "value": "java.lang.Double"},
 			SHORT: {"id" : "FLOAT", "value": "java.lang.Short"},
-			CHARACTER: {"id" : "FLOAT", "value": "java.lang.Character"},
-			BYTE: {"id" : "FLOAT", "value": "java.lang.Byte"},
-			STRING: {"id" : "FLOAT", "value": "java.lang.String"},
-			LIST: {"id" : "FLOAT", "value": "java.util.List"},
-			SET: {"id" : "FLOAT", "value": "java.util.Set"},
-			DATE: {"id" : "FLOAT", "value": "java.util.Date"},
-			LOCAL_DATE: {"id" : "FLOAT", "value": "java.time.LocalDate"},
-			LOCAL_DATE_TIME: {"id" : "FLOAT", "value": "java.time.LocalDateTime"},
-			LOCAL_TIME: {"id" : "FLOAT", "value": "java.time.LocalTime"},
-			BIG_DECIMAL: {"id" : "FLOAT", "value": "java.math.BigDecimal"},
-			BOOLEAN: {"id" : "FLOAT", "value": "java.lang.Boolean"},
-			LIST_OBJET: {"id" : "FLOAT", "value": "lista de objeto"},
-			SET_OBJET: {"id" : "FLOAT", "value": "set de objeto"},
-			OBJET: {"id" : "FLOAT", "value": "objeto"},
-			VOID: {"id" : "FLOAT", "value": "void"},
-			INT_PRIMITIVO: {"id" : "FLOAT", "value": "int"},
-			FLOAT_PRIMITIVO: {"id" : "FLOAT", "value": "float"},
-			LONG_PRIMITIVO: {"id" : "FLOAT", "value": "long"},
-			SHORT_PRIMITIVO: {"id" : "FLOAT", "value": "short"},
-			BYTE_PRIMITIVO: {"id" : "FLOAT", "value": "byte"},
-			CHAR_PRIMITIVO: {"id" : "FLOAT", "value": "char"},
-			DOUBLE_PRIMITIVO: {"id" : "FLOAT", "value": "double"},
-			BOOLEAN_PRIMITIVO: {"id" : "FLOAT", "value": "boolean"}
+			CHARACTER: {"id" : "CHARACTER", "value": "java.lang.Character"},
+			BYTE: {"id" : "BYTE", "value": "java.lang.Byte"},
+			STRING: {"id" : "STRING", "value": "java.lang.String"},
+			LIST: {"id" : "LIST", "value": "java.util.List"},
+			SET: {"id" : "SET", "value": "java.util.Set"},
+			DATE: {"id" : "DATE", "value": "java.util.Date"},
+			LOCAL_DATE: {"id" : "LOCAL_DATE", "value": "java.time.LocalDate"},
+			LOCAL_DATE_TIME: {"id" : "LOCAL_DATE_TIME", "value": "java.time.LocalDateTime"},
+			LOCAL_TIME: {"id" : "LOCAL_TIME", "value": "java.time.LocalTime"},
+			BIG_DECIMAL: {"id" : "BIG_DECIMAL", "value": "java.math.BigDecimal"},
+			BOOLEAN: {"id" : "BOOLEAN", "value": "java.lang.Boolean"},
+			LIST_OBJET: {"id" : "LIST_OBJET", "value": "lista de objeto"},
+			SET_OBJET: {"id" : "SET_OBJET", "value": "set de objeto"},
+			OBJET: {"id" : "OBJET", "value": "objeto"},
+			VOID: {"id" : "VOID", "value": "void"},
+			INT_PRIMITIVO: {"INT_PRIMITIVO" : "FLOAT", "value": "int"},
+			FLOAT_PRIMITIVO: {"id" : "FLOAT_PRIMITIVO", "value": "float"},
+			LONG_PRIMITIVO: {"id" : "LONG_PRIMITIVO", "value": "long"},
+			SHORT_PRIMITIVO: {"id" : "SHORT_PRIMITIVO", "value": "short"},
+			BYTE_PRIMITIVO: {"id" : "BYTE_PRIMITIVO", "value": "byte"},
+			CHAR_PRIMITIVO: {"id" : "CHAR_PRIMITIVO", "value": "char"},
+			DOUBLE_PRIMITIVO: {"id" : "DOUBLE_PRIMITIVO", "value": "double"},
+			BOOLEAN_PRIMITIVO: {"id" : "BOOLEAN_PRIMITIVO", "value": "boolean"}
 		}		
 	};
 	
@@ -56,15 +56,20 @@ angular.module("projetoTecnico").factory("tipoRetornoEnum", function () {
 	var _getTypeDate = function(){
         var lista = [];
         lista.push(_get().DATE);
+        return lista;
+    }
+
+	var _getTypeLocalDate = function(){
+        var lista = [];
         lista.push(_get().LOCAL_DATE);
         return lista;
     }
 
-	var _getTypeDateTime = function(){
+	var _getTypeLocalDateTime = function(){
         var lista = [];
         lista.push(_get().LOCAL_DATE_TIME);
         return lista;
-    }
+    }	
 
 	var _getTypeTime = function(){
         var lista = [];
@@ -90,7 +95,8 @@ angular.module("projetoTecnico").factory("tipoRetornoEnum", function () {
 		get: _get,
 		getTypeNumber: _getTypeNumber,
 		getTypeDate: _getTypeDate,
-		getTypeDateTime: _getTypeDateTime,
+		getTypeLocalDate: _getTypeLocalDate,
+		getTypeLocalDateTime: _getTypeLocalDateTime,
 		getTypeTime: _getTypeTime,
 		getTypeBoolean: _getTypeBoolean,
 		getTypeList: _getTypeList

@@ -7,9 +7,11 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     var TEXT = "text";
     var TIME = "time";
     var DATE = "date";
+    var PT_BR = "pt-BR";
     var LOCAL_DATE = "datetime-local";
     var NUMBER = "number";
     var VIRGULA = ", ";
+    var DIA_DEDUZIR = 1;
     var MENSAGEM_PLACEHOLDER_LIST = "Digite um id";
     var MENSAGEM_PLACEHOLDER_BOOLEAN = "Digite true ou false";
 
@@ -84,7 +86,7 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
             return DATE;
         }
 
-        tipos = getTypeDateTime().filter(temTipoIgualType);
+        tipos = getTypeLocalDateTime().filter(temTipoIgualType);
         if (util.primeiroValorMaiorQueSegundo(tipos.length, ZERO))  {
             return LOCAL_DATE;
         }
@@ -115,10 +117,11 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
         }
     }   
 
-    function temTipoIgualType(obj){
-        if (angular.isDefined(vm.log.propriedadeSelect2)){
-            return obj.value == vm.log.propriedadeSelect2.tipo;
-        }
+    function temTipoIgualType(obj, tipo){
+        if (angular.isDefined(tipo)) return obj.value == tipo;        
+
+        if (angular.isDefined(vm.log.propriedadeSelect2))
+            return obj.value == vm.log.propriedadeSelect2.tipo;        
     }
 
     function getTypeDate(){ return tipoRetornoEnum.getTypeDate(); }    
@@ -126,10 +129,45 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     function getTypeList(){  return tipoRetornoEnum.getTypeList(); }
     function getTypeNumber(){ return tipoRetornoEnum.getTypeNumber(); }
     function getTypeBoolean(){  return tipoRetornoEnum.getTypeBoolean(); }
-    function getTypeDateTime(){ return tipoRetornoEnum.getTypeDateTime(); }   
+    function getTypeLocalDate(){ return tipoRetornoEnum.getTypeLocalDate(); }  
+    function getTypeLocalDateTime(){ return tipoRetornoEnum.getTypeLocalDateTime(); }  
+    
+    function isDate(tipo){ 
+        var datas =  getTypeDate().filter(x => temTipoIgualType(x, tipo));
+        return util.primeiroValorMaiorQueSegundo(datas.length, ZERO);        
+    }
+
+    function isLocalDate(tipo){ 
+        var datas = getTypeLocalDate().filter(x => temTipoIgualType(x, tipo));
+        return util.primeiroValorMaiorQueSegundo(datas.length, ZERO);        
+    } 
+
+    function isLocalDateTime(tipo){ 
+        var datas = getTypeLocalDateTime().filter(x => temTipoIgualType(x, tipo));
+        return util.primeiroValorMaiorQueSegundo(datas.length, ZERO);        
+    } 
+
+    function isTime(tipo){ 
+        var horas = getTypeTime().filter(x => temTipoIgualType(x, tipo));
+        return util.primeiroValorMaiorQueSegundo(horas.length, ZERO);        
+    }  
 
     function getDataParaExibir(data){ 
-        return new Date(data).toLocaleString('pt-BR'); 
+        return new Date(data).toLocaleString(PT_BR); 
+    }
+    
+    function getTimeParaExibir(data){
+        return new Date(null, null , null, data.hour, data.minute, data.second).toLocaleTimeString(PT_BR); 
+    }
+
+    function getLocalDataParaExibir(data){
+        return new Date(data.year, data.month - DIA_DEDUZIR , data.day).toLocaleDateString(PT_BR); 
+    }
+
+    function getLocalDataTimeParaExibir(data){ 
+        if (angular.isDefined(data.date) && angular.isDefined(data.time))
+            return new Date(data.date.year, data.date.month - DIA_DEDUZIR, data.date.day,
+                            data.time.hour, data.time.minute, data.time.second).toLocaleString(PT_BR); 
     }
     
     function getAcaoParaExibir(codigoAcao){ 
@@ -145,10 +183,10 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
         return acaoEntity;
     }
 
-    function getPropriedadeValor(propriedade, log){
-        //debugger
+    function getPropriedadeValor(propriedade, log){        
         logRegistro = JSON.parse(log);
         valorRetorno = logRegistro[propriedade.nome];
+        
         if (angular.isObject(valorRetorno) && valorRetorno.length > ZERO){
             var ids = VAZIO;
             valorRetorno.forEach(obj => {
@@ -156,9 +194,16 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
             });
             valorRetorno = ids;
         }
-
-        if (angular.isObject(valorRetorno) && valorRetorno.object){            
+        
+        if (angular.isObject(valorRetorno) && propriedade.object){            
             valorRetorno = valorRetorno.id;
+        }
+        
+        if (!propriedade.object){ 
+            if (isTime(propriedade.tipo)) return getTimeParaExibir(valorRetorno);
+            if (isDate(propriedade.tipo)) return getDataParaExibir(valorRetorno);
+            if (isLocalDate(propriedade.tipo)) return getLocalDataParaExibir(valorRetorno);            
+            if (isLocalDateTime(propriedade.tipo)) return getLocalDataTimeParaExibir(valorRetorno);
         }
         return valorRetorno; 
     }
