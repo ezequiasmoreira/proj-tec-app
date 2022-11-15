@@ -44,7 +44,9 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
 
             function success(response){ 
                 vm.logFilters = response.data;
+                atualizarPropriedadesAlterada();
                 console.log(response)
+                console.log(vm.propriedades)
             }
 
             function error(response){ 
@@ -193,7 +195,7 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     function getPropriedadeValor(propriedade, log){        
         logRegistro = JSON.parse(log);
         valorRetorno = logRegistro[propriedade.nome];
-        
+
         if (angular.isObject(valorRetorno) && valorRetorno.length > ZERO){
             var ids = VAZIO;
             valorRetorno.forEach(obj => {
@@ -213,5 +215,52 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
             if (isLocalDateTime(propriedade.tipo)) return getLocalDataTimeParaExibir(valorRetorno);
         }
         return valorRetorno; 
+    }
+
+    function atualizarPropriedadesAlterada(){ 
+        vm.propriedades.forEach(propriedade => { 
+            vm.logFilters.forEach(log => {
+                var campos = JSON.parse(log.campos);                    
+                var campoValor = campos[propriedade.nome];
+                if (angular.isObject(campoValor)&& util.primeiroValorMaiorQueSegundo(campoValor.length, ZERO)) {
+                    var ids = VAZIO;
+                    campoValor.forEach(obj => {
+                        ids += ids == VAZIO ? obj.id : VIRGULA + obj.id;
+                    });
+                    campoValor = ids;
+                }
+                if (angular.isObject(campoValor) && propriedade.object){            
+                    campoValor = campoValor.id;
+                }
+                var ps = getPropriedadesAlterada(propriedade, campoValor);
+                if (util.primeiroValorMaiorQueSegundo(ps.length, 1)){
+                    propriedade.hasAlteracao = true;
+                }
+            });
+        });
+    }
+
+    function getPropriedadesAlterada(propriedade, valor){ 
+        var propriedades = [];
+        vm.logFilters.forEach(log => {
+            var campos = JSON.parse(log.campos);
+            Object.keys(campos).forEach(campo => {                
+                var campoValor = campos[campo];
+                if (angular.isObject(campoValor)&& util.primeiroValorMaiorQueSegundo(campoValor.length, ZERO)) {
+                    var ids = VAZIO;
+                    campoValor.forEach(obj => {
+                        ids += ids == VAZIO ? obj.id : VIRGULA + obj.id;
+                    });
+                    campoValor = ids;
+                }
+                if (angular.isObject(campoValor) && propriedade.object){            
+                    campoValor = campoValor.id;
+                }
+                if ((campo == propriedade.nome) && ( campoValor != valor)){
+                    propriedades.push(propriedade);
+                }
+            });
+        });
+        return propriedades;
     }
 });
