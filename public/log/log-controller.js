@@ -26,11 +26,12 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
     
     vm.log ={};
     vm.logFilter= {};
-    vm.logFilters = [];
-    vm.atualizarClasses = atualizarClasses;
+    vm.logFilters = [];    
     vm.obterLogs = obterLogs;
+    vm.foiAlterado = foiAlterado;
     vm.getTypeInput = getTypeInput;
-    vm.getPlaceholder = getPlaceholder;
+    vm.getPlaceholder = getPlaceholder; 
+    vm.atualizarClasses = atualizarClasses;   
     vm.getAcaoParaExibir = getAcaoParaExibir;
     vm.getDataParaExibir = getDataParaExibir;
     vm.getPropriedadeValor = getPropriedadeValor;
@@ -246,6 +247,7 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
             var campos = JSON.parse(log.campos);
             Object.keys(campos).forEach(campo => {                
                 var campoValor = campos[campo];
+
                 if (angular.isObject(campoValor)&& util.primeiroValorMaiorQueSegundo(campoValor.length, ZERO)) {
                     var ids = VAZIO;
                     campoValor.forEach(obj => {
@@ -253,14 +255,76 @@ angular.module('projetoTecnico').controller('logController', function($scope, lo
                     });
                     campoValor = ids;
                 }
+
                 if (angular.isObject(campoValor) && propriedade.object){            
                     campoValor = campoValor.id;
                 }
+
                 if ((campo == propriedade.nome) && ( campoValor != valor)){
                     propriedades.push(propriedade);
                 }
             });
         });
         return propriedades;
+    }
+    function foiAlterado(log, propriedade){
+        var campos = JSON.parse(log.campos);
+        var passouNaLista = false;
+        var propriedadeAlterada = false;
+        var logFilters = vm.logFilters;
+        logFilters.sort(ordenarPorData).filter(x =>  new Date(x.dataCadastro) < new Date(log.dataCadastro)).forEach(logFilter => {
+            if (!passouNaLista){
+                var propriedadeAtual = campos[propriedade.nome];
+                var propriedadeLoop = JSON.parse(logFilter.campos)[propriedade.nome];
+                if (angular.isObject(propriedadeLoop) && angular.isObject(propriedadeAtual)) {
+                    if (isDate(propriedade.tipo)) {
+                        propriedadeLoop = getDataParaExibir(propriedadeLoop);
+                        propriedadeAtual = getDataParaExibir(propriedadeAtual);                        
+                    }
+                    if (isTime(propriedade.tipo)) {
+                        propriedadeLoop = getTimeParaExibir(propriedadeLoop);
+                        propriedadeAtual = getTimeParaExibir(propriedadeAtual);                        
+                    }
+                    if (isLocalDate(propriedade.tipo)) {
+                        propriedadeLoop = getLocalDataParaExibir(propriedadeLoop);
+                        propriedadeAtual = getLocalDataParaExibir(propriedadeAtual);                        
+                    } 
+                             
+                    if (isLocalDateTime(propriedade.tipo)) {
+                        propriedadeLoop = getLocalDataTimeParaExibir(propriedadeLoop);
+                        propriedadeAtual = getLocalDataTimeParaExibir(propriedadeAtual);                        
+                    }                    
+                   
+                    var ids = VAZIO;                    
+                    if ( propriedadeLoop.length > ZERO){                        
+                        propriedadeLoop.forEach(obj => {
+                            ids += ids == VAZIO ? obj.id : VIRGULA + obj.id;
+                        });
+                        propriedadeLoop = ids;
+                    }
+
+                    if ( propriedadeAtual.length > ZERO){ 
+                        ids = VAZIO;                        
+                        propriedadeAtual.forEach(obj => {
+                            ids += ids == VAZIO ? obj.id : VIRGULA + obj.id;
+                        });
+                        propriedadeAtual = ids;
+                    }
+
+                    if (propriedade.object){
+                        propriedadeLoop = propriedadeLoop.id;
+                        propriedadeAtual = propriedadeAtual.id
+                    }
+                    
+                }
+                passouNaLista = true;
+                propriedadeAlterada = propriedadeLoop != propriedadeAtual;            
+            }
+        });
+        return propriedadeAlterada;
+    }
+
+    function ordenarPorData(a, b){
+        return new Date(a.dataCadastro < new Date(b.dataCadastro));
     }
 });

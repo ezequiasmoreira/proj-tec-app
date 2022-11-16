@@ -147,6 +147,10 @@
     width: 13%;
 }
 
+.propriedade-alterado {
+    background-color: #ffff80;
+}
+
 @-webkit-keyframes fadeOut {
     from {opacity: 1;}
     to {opacity: 0;}

@@ -81,8 +81,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="propriedade in propriedades" ng-if="propriedade.hasAlteracao">
-        <td title="{{propriedade.tipo}}" colspan="6">{{propriedade.nome}} : {{getPropriedadeValor(propriedade, logFilter.campos)}}</td>
+      <tr  ng-repeat="propriedade in propriedades" ng-if="propriedade.hasAlteracao">
+        <td ng-class="{'propriedade-alterado': foiAlterado(logFilter, propriedade)}" title="{{propriedade.tipo}}" colspan="6">{{propriedade.nome}} : {{getPropriedadeValor(propriedade, logFilter.campos)}}</td>
       </tr>
       <tr>
     </tbody>
